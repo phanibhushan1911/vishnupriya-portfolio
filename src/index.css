@@ -1586,6 +1586,20 @@
     align-items: center;
   }
 
+  .badge-certified {
+    font-size: 0.78rem;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 16px;
+    text-align: center;
+    justify-content: center;
+    max-width: 90%;
+    align-items: flex-start;
+  }
+
+  .badge-certified svg {
+    margin-top: 2px;
+  }
+
   /* Scale orbital rings for mobile */
   .hero-visual::before {
     width: 300px;
