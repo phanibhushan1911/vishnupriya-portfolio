@@ -29,8 +29,10 @@ export const Education: React.FC = () => {
         {/* Education Card */}
         <article className="glass-card cert-badge-wrapper">
           <div className="cert-logo" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.9c2.785 0 5.43-.478 7.893-1.363.15-.385.279-.78.386-1.187.244-.93.364-1.892.364-2.848 0-1.578-.316-3.11-.91-4.553M4.26 10.147a48.69 48.69 0 0 1 7.74-1.637m0 0a48.67 48.67 0 0 1 7.74 1.637m-7.74-1.637v5.625c0 .597-.172 1.17-.492 1.661l-.855 1.312a1.125 1.125 0 0 1-1.89 0l-.855-1.312A2.25 2.25 0 0 1 8.25 14.13V8.51M2.25 9.375 12 4.625l9.75 4.75-9.75 4.75-9.75-4.75Z" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+              <path d="M21.5 12v6" />
             </svg>
           </div>
           <div className="cert-details">
