@@ -1,8 +1,11 @@
 import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const Education: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section id="education" aria-label="Certifications and Academic Education">
+    <section ref={ref} id="education" aria-label="Certifications and Academic Education" className={`reveal ${isVisible ? 'revealed' : ''}`}>
       <h2 className="section-title">Certifications & Education</h2>
       <p className="section-subtitle">
         Professional validation and academic credentials in systems engineering.

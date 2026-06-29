@@ -93,6 +93,13 @@ export const App: React.FC = () => {
       {/* Visual background stream */}
       <CanvasBackground />
 
+      {/* Floating gradient orbs */}
+      <div className="gradient-orbs" aria-hidden="true">
+        <div className="gradient-orb gradient-orb--1" />
+        <div className="gradient-orb gradient-orb--2" />
+        <div className="gradient-orb gradient-orb--3" />
+      </div>
+
       {/* Navigation header bar */}
       <Header activeSection={activeSection} theme={theme} onThemeToggle={toggleTheme} />
 
@@ -100,10 +107,15 @@ export const App: React.FC = () => {
       <main>
         <Hero />
         <Dashboard />
+        <hr className="section-divider" />
         <O2CExplorer />
+        <hr className="section-divider" />
         <Timeline />
+        <hr className="section-divider" />
         <Skills />
+        <hr className="section-divider" />
         <Education />
+        <hr className="section-divider" />
         <Contact />
       </main>
 

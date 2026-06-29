@@ -1,9 +1,39 @@
 import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useAnimatedCounter } from '../hooks/useAnimatedCounter';
+
+interface MetricCardProps {
+  endValue: number;
+  suffix: string;
+  label: string;
+  desc: string;
+  icon: React.ReactNode;
+  isVisible: boolean;
+  staggerClass: string;
+}
+
+const MetricCard: React.FC<MetricCardProps> = ({ endValue, suffix, label, desc, icon, isVisible, staggerClass }) => {
+  const displayValue = useAnimatedCounter(endValue, isVisible, 2200, suffix);
+
+  return (
+    <article className={`metric-card glass-card reveal ${isVisible ? 'revealed' : ''} ${staggerClass}`}>
+      <div className="metric-icon-wrapper" aria-hidden="true">
+        {icon}
+      </div>
+      <p className="metric-value">{displayValue}</p>
+      <h2 className="metric-label">{label}</h2>
+      <p className="metric-desc">{desc}</p>
+    </article>
+  );
+};
 
 export const Dashboard: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   const metrics = [
     {
-      value: '4+',
+      endValue: 4,
+      suffix: '+',
       label: 'Years of Experience',
       desc: 'SAP SD Implementation & Support',
       icon: (
@@ -13,7 +43,8 @@ export const Dashboard: React.FC = () => {
       ),
     },
     {
-      value: '98%',
+      endValue: 98,
+      suffix: '%',
       label: 'AMS Project SLA',
       desc: 'Ledvance Applications ServiceNow ticket compliance',
       icon: (
@@ -23,7 +54,8 @@ export const Dashboard: React.FC = () => {
       ),
     },
     {
-      value: '150+',
+      endValue: 150,
+      suffix: '+',
       label: 'Monthly Tickets',
       desc: 'Average incidents resolved using ServiceNow & ALM',
       icon: (
@@ -33,7 +65,8 @@ export const Dashboard: React.FC = () => {
       ),
     },
     {
-      value: '95%',
+      endValue: 95,
+      suffix: '%',
       label: 'Overall SLA Rate',
       desc: 'Sustained response speed across cognitive ticket queues',
       icon: (
@@ -44,18 +77,22 @@ export const Dashboard: React.FC = () => {
     },
   ];
 
+  const staggerClasses = ['stagger-1', 'stagger-2', 'stagger-3', 'stagger-4'];
+
   return (
-    <section className="dashboard-section" aria-label="Key Performance Indicators Dashboard">
+    <section ref={ref} className="dashboard-section" aria-label="Key Performance Indicators Dashboard">
       <div className="dashboard-grid">
         {metrics.map((m, idx) => (
-          <article key={idx} className="metric-card glass-card">
-            <div className="metric-icon-wrapper" aria-hidden="true">
-              {m.icon}
-            </div>
-            <p className="metric-value">{m.value}</p>
-            <h2 className="metric-label">{m.label}</h2>
-            <p className="metric-desc">{m.desc}</p>
-          </article>
+          <MetricCard
+            key={idx}
+            endValue={m.endValue}
+            suffix={m.suffix}
+            label={m.label}
+            desc={m.desc}
+            icon={m.icon}
+            isVisible={isVisible}
+            staggerClass={staggerClasses[idx]}
+          />
         ))}
       </div>
     </section>

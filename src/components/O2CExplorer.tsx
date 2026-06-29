@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface StepData {
   phase: string;
@@ -9,6 +10,7 @@ interface StepData {
 }
 
 export const O2CExplorer: React.FC = () => {
+  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
   const [activeStep, setActiveStep] = useState<number>(1);
   const [displayedStep, setDisplayedStep] = useState<number>(1);
   const [fade, setFade] = useState<boolean>(false);
@@ -119,7 +121,7 @@ export const O2CExplorer: React.FC = () => {
   const currentContent = contentMap[displayedStep];
 
   return (
-    <section id="expertise" aria-label="Functional O2C Expertise">
+    <section ref={sectionRef} id="expertise" aria-label="Functional O2C Expertise" className={`reveal ${isVisible ? 'revealed' : ''}`}>
       <h2 className="section-title">O2C Module Expertise</h2>
       <p className="section-subtitle">
         Select a phase of the SAP Order-to-Cash process below to view my specific configuration expertise and project accomplishments.

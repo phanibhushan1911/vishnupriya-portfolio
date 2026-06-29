@@ -1,4 +1,5 @@
 import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface SkillCategory {
   title: string;
@@ -7,6 +8,8 @@ interface SkillCategory {
 }
 
 export const Skills: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   const categories: SkillCategory[] = [
     {
       title: 'SAP Expertise',
@@ -67,7 +70,7 @@ export const Skills: React.FC = () => {
   ];
 
   return (
-    <section id="skills" aria-label="Technical Skills Inventory">
+    <section ref={ref} id="skills" aria-label="Technical Skills Inventory" className={`reveal ${isVisible ? 'revealed' : ''}`}>
       <h2 className="section-title">Technical Skills</h2>
       <p className="section-subtitle">
         Categorized breakdown of my core technical inventory and functional mastery in SAP landscapes.
@@ -75,7 +78,7 @@ export const Skills: React.FC = () => {
 
       <div className="skills-grid">
         {categories.map((c, idx) => (
-          <article key={idx} className="skill-category-card glass-card">
+          <article key={idx} className={`skill-category-card glass-card reveal ${isVisible ? 'revealed' : ''} stagger-${idx + 1}`}>
             <h3 className="skill-category-title">
               {c.icon}
               {c.title}

@@ -1,8 +1,11 @@
 import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const Timeline: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section id="experience" aria-label="Professional Experience Timeline">
+    <section ref={ref} id="experience" aria-label="Professional Experience Timeline" className={`reveal ${isVisible ? 'revealed' : ''}`}>
       <h2 className="section-title">Professional Experience</h2>
       <p className="section-subtitle">
         More than 4 years of consulting and hands-on configurations with Cognizant Technology Solutions.

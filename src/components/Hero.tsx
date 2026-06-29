@@ -27,9 +27,12 @@ export const Hero: React.FC = () => {
             SAP® Certified Application Associate – S/4HANA Sales
           </div>
           <h1 className="hero-title">Vishnupriya Damarla</h1>
-          <p className="hero-subtitle">SAP SD Consultant</p>
+          <p className="hero-subtitle">
+            SAP SD Consultant
+            <span className="typing-cursor" aria-hidden="true" />
+          </p>
           <p className="hero-desc">
-            Over 4+ years of professional experience driving digital business transformation in order fulfillment, pricing architecture, and logistics. Specializing in customizing Order-to-Cash (O2C) solutions in SAP ECC & S/4HANA, integrating cross-module supply chains (MM, FICO, WM), and maintaining stellar system availability.
+            Over 4+ years of professional experience driving digital business transformation in order fulfillment, pricing architecture, and logistics. Specializing in customizing Order-to-Cash (O2C) solutions in SAP ECC &amp; S/4HANA, integrating cross-module supply chains (MM, FICO, WM), and maintaining stellar system availability.
           </p>
           <div className="hero-actions">
             <a 

@@ -1,8 +1,11 @@
 import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const Contact: React.FC = () => {
+  const { ref, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section id="contact" aria-label="Contact Channels">
+    <section ref={ref} id="contact" aria-label="Contact Channels" className={`reveal-scale ${isVisible ? 'revealed' : ''}`}>
       <div className="glass-card contact-card">
         <h2 className="section-title">Get In Touch</h2>
         <p className="contact-intro">
