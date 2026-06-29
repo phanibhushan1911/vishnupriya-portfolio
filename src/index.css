@@ -1600,6 +1600,11 @@
     margin-top: 2px;
   }
 
+  .hero-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
   /* Scale orbital rings for mobile */
   .hero-visual::before {
     width: 300px;
