@@ -392,6 +392,23 @@
     opacity: 1;
   }
 
+  .theme-toggle-btn--auto {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent-dim);
+  }
+
+  .theme-toggle-btn--auto::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    z-index: 2;
+  }
+
   .theme-toggle-btn svg {
     width: 18px;
     height: 18px;

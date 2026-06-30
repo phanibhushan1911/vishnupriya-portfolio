@@ -8,49 +8,11 @@ import { Timeline } from './components/Timeline';
 import { Skills } from './components/Skills';
 import { Education } from './components/Education';
 import { Contact } from './components/Contact';
+import { useTheme } from './hooks/useTheme';
 
 export const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('about');
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    // Initializer reads from local storage or defaults to system settings
-    const stored = localStorage.getItem('color-scheme');
-    if (stored === 'dark' || stored === 'light') return stored;
-    
-    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return systemDark ? 'dark' : 'light';
-  });
-
-  // Apply theme class and meta properties to DOM
-  useEffect(() => {
-    const root = document.documentElement;
-    const metaTheme = document.querySelector('meta[name="color-scheme"]');
-
-    if (theme === 'dark') {
-      root.classList.add('dark-theme');
-      root.classList.remove('light-theme');
-      if (metaTheme) metaTheme.setAttribute('content', 'dark');
-    } else {
-      root.classList.add('light-theme');
-      root.classList.remove('dark-theme');
-      if (metaTheme) metaTheme.setAttribute('content', 'light');
-    }
-
-    localStorage.setItem('color-scheme', theme);
-  }, [theme]);
-
-  // Sync with changes in OS light/dark modes
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
-      // Only adapt if user hasn't explicitly set a preference
-      if (!localStorage.getItem('color-scheme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-
-    media.addEventListener('change', handleSystemThemeChange);
-    return () => media.removeEventListener('change', handleSystemThemeChange);
-  }, []);
+  const { theme, themeMode, toggleThemeMode } = useTheme();
 
   // Monitor viewport scrolls to track active layout section
   useEffect(() => {
@@ -84,10 +46,6 @@ export const App: React.FC = () => {
     };
   }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
-
   return (
     <>
       {/* Visual background stream */}
@@ -101,7 +59,12 @@ export const App: React.FC = () => {
       </div>
 
       {/* Navigation header bar */}
-      <Header activeSection={activeSection} theme={theme} onThemeToggle={toggleTheme} />
+      <Header
+        activeSection={activeSection}
+        theme={theme}
+        themeMode={themeMode}
+        onThemeToggle={toggleThemeMode}
+      />
 
       {/* Main content grid sections */}
       <main>

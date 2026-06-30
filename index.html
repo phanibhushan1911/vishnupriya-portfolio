@@ -22,14 +22,24 @@
   <!-- Theme checker (runs synchronously before rendering to prevent white flash) -->
   <script>
     {
-      const colorScheme = localStorage.getItem("color-scheme");
-      if (colorScheme) {
-        document.querySelector('meta[name="color-scheme"]').content = colorScheme;
-        if (colorScheme === 'dark') {
-          document.documentElement.classList.add('dark-theme');
-        } else if (colorScheme === 'light') {
-          document.documentElement.classList.add('light-theme');
-        }
+      const LIGHT_START = 7;
+      const DARK_START = 19;
+      const themeMode = localStorage.getItem("theme-mode");
+      const legacyScheme = localStorage.getItem("color-scheme");
+
+      let resolved = null;
+      if (themeMode === "light" || themeMode === "dark") {
+        resolved = themeMode;
+      } else if (themeMode === "auto" || !themeMode) {
+        const hour = new Date().getHours();
+        resolved = hour >= LIGHT_START && hour < DARK_START ? "light" : "dark";
+      } else if (legacyScheme === "light" || legacyScheme === "dark") {
+        resolved = legacyScheme;
+      }
+
+      if (resolved) {
+        document.querySelector('meta[name="color-scheme"]').content = resolved;
+        document.documentElement.classList.add(resolved === "dark" ? "dark-theme" : "light-theme");
       }
     }
   </script>

@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
+import type { ResolvedTheme, ThemeMode } from '../utils/theme';
 
 interface HeaderProps {
   activeSection: string;
-  theme: 'light' | 'dark';
+  theme: ResolvedTheme;
+  themeMode: ThemeMode;
   onThemeToggle: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onThemeToggle }) => {
+const THEME_MODE_LABELS: Record<ThemeMode, string> = {
+  auto: 'time-based',
+  light: 'light',
+  dark: 'dark',
+};
+
+const NEXT_THEME_MODE: Record<ThemeMode, ThemeMode> = {
+  auto: 'light',
+  light: 'dark',
+  dark: 'auto',
+};
+
+export const Header: React.FC<HeaderProps> = ({
+  activeSection,
+  theme,
+  themeMode,
+  onThemeToggle,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -58,11 +77,11 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onThemeTog
 
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           {/* Theme switcher with aria labels */}
-          <button 
-            className="theme-toggle-btn" 
-            onClick={onThemeToggle} 
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} 
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+          <button
+            className={`theme-toggle-btn${themeMode === 'auto' ? ' theme-toggle-btn--auto' : ''}`}
+            onClick={onThemeToggle}
+            aria-label={`Theme: ${THEME_MODE_LABELS[themeMode]}. Switch to ${THEME_MODE_LABELS[NEXT_THEME_MODE[themeMode]]} mode`}
+            title={`Theme: ${THEME_MODE_LABELS[themeMode]} (currently ${theme}). Click for ${THEME_MODE_LABELS[NEXT_THEME_MODE[themeMode]]} mode`}
           >
             {/* Sun Icon (shown in light mode) */}
             <svg className="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
